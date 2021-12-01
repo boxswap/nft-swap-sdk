@@ -221,13 +221,16 @@ class NftSwap implements INftSwap {
     );
   }
 
+  // @ts-ignore
   public fillSignedOrder = async (
     signedOrder: SignedOrder,
+    exchangeAddress: string,
     fillOrverrides?: Partial<FillOrderOverrides>
   ) => {
     return _sendSignedOrderToEthereum(
       signedOrder,
-      fillOrverrides?.exchangeContract ?? this.exchangeContract
+      fillOrverrides?.exchangeContract ?? this.exchangeContract,
+      exchangeAddress
     );
   };
 }
