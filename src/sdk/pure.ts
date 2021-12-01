@@ -137,7 +137,8 @@ export const calculateProtocolFee = (
 
 export const sendSignedOrderToEthereum = async (
   signedOrder: SignedOrder,
-  exchangeContract: ExchangeContract
+  exchangeContract: ExchangeContract,
+  exchangeAddress: string
 ): Promise<string> => {
   const txHash = await exchangeContract
     .fillOrKillOrder(
@@ -148,6 +149,7 @@ export const sendSignedOrderToEthereum = async (
     .sendTransactionAsync({
       from: signedOrder.takerAddress,
       value: calculateProtocolFee([signedOrder]),
+      to: exchangeAddress,
     });
   return txHash;
 };
