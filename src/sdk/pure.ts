@@ -128,9 +128,12 @@ export const buildOrder = (
   return order;
 };
 
-export const calculateProtocolFee = (orders: SignedOrder[], gasPrice: BigNumber | number = { gas: 800000, gasPrice: 1000000000 }): BigNumber => {
+export const calculateProtocolFee = (
+  orders: SignedOrder[],
+  gasPrice: BigNumber | number = 1000000000
+): BigNumber => {
   return new BigNumber(150000).times(gasPrice).times(orders.length);
-} 
+};
 
 export const sendSignedOrderToEthereum = async (
   signedOrder: SignedOrder,
@@ -144,7 +147,7 @@ export const sendSignedOrderToEthereum = async (
     )
     .sendTransactionAsync({
       from: signedOrder.takerAddress,
-      value: calculateProtocolFee([signedOrder])
+      value: calculateProtocolFee([signedOrder]),
     });
   return txHash;
 };
