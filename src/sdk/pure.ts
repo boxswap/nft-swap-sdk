@@ -128,17 +128,9 @@ export const buildOrder = (
   return order;
 };
 
-export const calculateProtocolFee = (
-  orders: SignedOrder[],
-  gasPrice: BigNumber | number = 1000000000
-): BigNumber => {
-  return new BigNumber(150000).times(gasPrice).times(orders.length);
-};
-
 export const sendSignedOrderToEthereum = async (
   signedOrder: SignedOrder,
-  exchangeContract: ExchangeContract,
-  exchangeAddress: string
+  exchangeContract: ExchangeContract
 ): Promise<string> => {
   const txHash = await exchangeContract
     .fillOrKillOrder(
@@ -148,8 +140,6 @@ export const sendSignedOrderToEthereum = async (
     )
     .sendTransactionAsync({
       from: signedOrder.takerAddress,
-      value: calculateProtocolFee([signedOrder]),
-      to: exchangeAddress,
     });
   return txHash;
 };
