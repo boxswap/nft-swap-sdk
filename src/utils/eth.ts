@@ -12,6 +12,7 @@ export const CRYPTO_KITTIES_CONTRACT_ADDRESS =
 export enum ChainId {
   Mainnet = 1,
   Kovan = 42,
+  OptimisticKovan = 69,
   Ganache = 1337,
 }
 
